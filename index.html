@@ -325,6 +325,7 @@
         <script>
             const answer = document.querySelector(".answer");
             const responses = [
+                "NO",
                 "STILL, NO.",
                 "NICE TRY. NO.",
                 "LOL. NO.",
@@ -354,13 +355,19 @@
             );
             let explosionTimer;
 
-            answer.addEventListener("click", () => {
+            function randomizeAnswer() {
                 const choices = responses.filter(
                     (response) => response !== answer.textContent,
                 );
                 answer.textContent =
                     choices[Math.floor(Math.random() * choices.length)];
                 answer.classList.add("still");
+            }
+
+            randomizeAnswer();
+
+            answer.addEventListener("click", () => {
+                randomizeAnswer();
                 clearTimeout(explosionTimer);
                 document.querySelector(".explosions")?.remove();
                 if (reducedMotion.matches) return;
