@@ -1,6 +1,13 @@
 services:
   web:
     build: .
-    ports:
-      - "${PORT:-8080}:80"
+    hostname: goodbye
+    networks:
+      uwu-weeb-network:
+        aliases:
+          - goodbye
     restart: unless-stopped
+
+networks:
+  uwu-weeb-network:
+    external: true
