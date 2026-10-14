@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#131827">
+    <title>May you can say goodbye to it</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #131827;
+        color: #f0f3ff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at top, #293e69 0, transparent 65%);
+      }
+
+      main {
+        width: min(1200px, 100%);
+        margin: auto;
+        padding: 64px 24px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 48px;
+        color: #a9c7ff;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .question {
+        margin: 0;
+        color: #c5cfe7;
+        font-size: clamp(1rem, 3vw, 1.4rem);
+      }
+
+      .answer {
+        margin: 8px 0 0;
+        color: #ff5c64;
+        font-family: "Arial Black", "Segoe UI", sans-serif;
+        font-size: clamp(6rem, 20vw, 12rem);
+        font-weight: 900;
+        -webkit-text-stroke: 2px #ff5c64;
+        text-shadow: 0 6px 0 #951e39, 0 12px 32px #ff394533;
+        line-height: 1.1;
+        letter-spacing: -0.07em;
+      }
+
+      .aside {
+        margin: 16px 0 0;
+        color: #a6b5d4;
+        font-size: 0.85rem;
+      }
+
+      .taunt {
+        margin: 12px 0 56px;
+        color: #a9c7ff;
+        font-style: italic;
+      }
+
+      .confetti {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .confetti span {
+        position: absolute;
+        top: -24px;
+        left: var(--left);
+        width: 9px;
+        height: 16px;
+        background: var(--color);
+        animation: confetti-fall var(--duration) var(--delay) ease-in both;
+      }
+
+      @keyframes confetti-fall {
+        from { transform: translateY(-24px) rotate(0deg); }
+        to { transform: translate(var(--drift), calc(100vh + 48px)) rotate(720deg); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .confetti { display: none; }
+      }
+
+      .screenshots {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+      }
+
+      .screenshots img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #40577f;
+        border-radius: 16px;
+        box-shadow: 0 16px 40px #0003;
+      }
+
+      @media (max-width: 700px) {
+        main { padding: 40px 20px; }
+        h1 { margin-bottom: 32px; }
+        .screenshots { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>May you can say goodbye to it</h1>
+      <p class="question">Have I said goodbye to my server yet?</p>
+      <p class="answer">NO</p>
+      <p class="aside">obviously</p>
+      <p class="taunt">yeah… that’s what I thought.</p>
+      <div class="screenshots">
+        <img src="assets/1.png" alt="First Discord screenshot">
+        <img src="assets/2.png" alt="Second Discord screenshot">
+      </div>
+    </main>
+    <script>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.setAttribute('aria-hidden', 'true');
+        const colors = ['#a9c7ff', '#ff5c64', '#ffd479', '#c1a1ff'];
+        const pieceCount = 60;
+
+        for (let i = 0; i < pieceCount; i++) {
+          const piece = document.createElement('span');
+          piece.style.setProperty('--left', `${Math.random() * 100}%`);
+          piece.style.setProperty('--color', colors[i % colors.length]);
+          piece.style.setProperty('--duration', `${2 + Math.random() * 2}s`);
+          piece.style.setProperty('--delay', `${Math.random()}s`);
+          piece.style.setProperty('--drift', `${Math.random() * 160 - 80}px`);
+          confetti.appendChild(piece);
+        }
+
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    </script>
+  </body>
+</html>
